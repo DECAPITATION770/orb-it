@@ -27,4 +27,9 @@ class Settings(BaseSettings):
     def openapi_url(self) -> str | None:
         return "/openapi.json" if self.DEBUG else None
 
+    #JWT
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
+    SECRET_KEY: str = "AShdkjaslie"
+    JWT_ALGORITHM = "HS256"
+
 settings = Settings()
