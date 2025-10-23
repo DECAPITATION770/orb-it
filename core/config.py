@@ -1,12 +1,11 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import computed_field
 
-
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        extra="ignore"
+        extra="ignore",
     )
 
     DB_URL: str
@@ -30,6 +29,6 @@ class Settings(BaseSettings):
     #JWT
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
     SECRET_KEY: str = "AShdkjaslie"
-    JWT_ALGORITHM = "HS256"
+    JWT_ALGORITHM: str = "HS256"
 
 settings = Settings()

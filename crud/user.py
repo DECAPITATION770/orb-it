@@ -9,7 +9,7 @@ from models.user import User, RoleEnum
 async def get_by_email(db: AsyncSession, email: str) -> Optional[User]:
     _ = select(User).where(User.email == email)
     res = await db.execute(_)
-    return res.scalar().first()
+    return res.scalar()
 
 async def get_by_id(db: AsyncSession, user_id: int) -> Optional[User]:
     q = select(User).where(User.id == user_id)
