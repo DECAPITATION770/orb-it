@@ -11,12 +11,12 @@ router = APIRouter()
 # @router.post("/verify_code")
 
 
-@router.get("/user/{email}", response_model=user_schema.UserEmailRead)
+@router.get("/user/{email}", response_model=user_schema.UserEmailRead, description="Get user by email")
 async def get_user(email: str, db: AsyncSession = Depends(get_db)):
     _ = await crud_user.get_by_email(db, email)
     return {"data": _}
 
-@router.patch("/user/{id}", response_model=user_schema.UserEmailRead)
+@router.patch("/user/{id}", response_model=user_schema.UserEmailRead, description="Update user (by id)")
 async def update_user(user_id: int, updates: user_schema.UpdateUser, db: AsyncSession = Depends(get_db)):
     user = await crud_user.get_by_id(db, user_id)
     if not user:
@@ -25,8 +25,8 @@ async def update_user(user_id: int, updates: user_schema.UpdateUser, db: AsyncSe
     _ = await crud_user.update_user(db, user, updates.model_dump())
     return {"data": _}
 
-
-@router.get("/users/")
+@router.get("/users/", response_model=list[user_schema.UserEmailRead], description="Get list of users")
 async def get_users(skip: int, limit: int):
     _ = crud_user.list_users(get_db(), skip=skip, limit=limit)
     return {"data": _}
+
